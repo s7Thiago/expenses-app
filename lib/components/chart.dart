@@ -29,7 +29,7 @@ class Chart extends StatelessWidget {
             .format(weekDay)[0], //Get the fist character from the week day name
         'value': totalSum,
       };
-    });
+    }).reversed.toList();
   }
 
   double get _weekTotalValue {

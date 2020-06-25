@@ -12,6 +12,9 @@ import './components/transaction_form.dart';
 main() => runApp(ExpensesApp());
 
 class ExpensesApp extends StatelessWidget {
+  final textThemeBase = TextStyle(
+      fontFamily: 'OpenSans', fontSize: 20, fontWeight: FontWeight.w700);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,12 +23,15 @@ class ExpensesApp extends StatelessWidget {
         primarySwatch: Colors.purple,
         accentColor: Colors.amber,
         fontFamily: 'Quicksand',
+        textTheme: TextTheme(
+          button: textThemeBase.copyWith(
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
-                headline6: TextStyle(
-                    fontFamily: 'OpenSans',
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700),
+                headline6: textThemeBase,
               ),
         ),
       ),

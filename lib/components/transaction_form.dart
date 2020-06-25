@@ -42,6 +42,24 @@ class _TransactionFormState extends State<TransactionForm> {
               keyboardType: TextInputType.numberWithOptions(decimal: true),
               decoration: InputDecoration(labelText: 'Value R\$'),
             ),
+            Container(
+              height: 70,
+              child: Row(
+                children: [
+                  Text('No date selected'),
+                  FlatButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Choose a date',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    textColor: Theme.of(context).primaryColor,
+                  ),
+                ],
+              ),
+            ),
             Align(
               alignment: Alignment.centerRight,
               child: FlatButton(
@@ -49,7 +67,8 @@ class _TransactionFormState extends State<TransactionForm> {
                 child: Text(
                   'New Transaction',
                 ),
-                textColor: Colors.purple,
+                textColor: Theme.of(context).textTheme.button.color,
+                color: Theme.of(context).primaryColor,
               ),
             )
           ],

@@ -1,5 +1,6 @@
+import 'package:expenses/components/transaction_item.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 import '../model/transaction.dart';
 
 class TransactionList extends StatelessWidget {
@@ -43,40 +44,8 @@ class TransactionList extends StatelessWidget {
               itemBuilder: (context, index) {
                 final transaction = transactions[index];
 
-                return Card(
-                  elevation: .7,
-                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      radius: 30,
-                      child: Padding(
-                        padding: const EdgeInsets.all(6.0),
-                        child: FittedBox(
-                          child: Text('R\$ ${transaction.value}'),
-                        ),
-                      ),
-                    ),
-                    title: Text(
-                      transaction.title,
-                      style: Theme.of(context).appBarTheme.textTheme.headline6,
-                    ),
-                    subtitle: Text(
-                      DateFormat('d MMM y').format(transaction.date),
-                    ),
-                    trailing: MediaQuery.of(context).size.width > 400
-                        ? FlatButton.icon(
-                            onPressed: () => onRemove(transaction.id),
-                            textColor: Theme.of(context).errorColor,
-                            label: Text('Delete'),
-                            icon: Icon(Icons.delete),
-                          )
-                        : IconButton(
-                            icon: Icon(Icons.delete),
-                            onPressed: () => onRemove(transaction.id),
-                            color: Theme.of(context).errorColor,
-                          ),
-                  ),
-                );
+                return TransactionItem(
+                    transaction: transaction, onRemove: onRemove);
               },
             ),
     );

@@ -17,24 +17,27 @@ class TransactionList extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height,
       child: transactions.isEmpty
-          ? Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 50),
-                  child: Text(
-                    'No transactions',
-                    style: Theme.of(context).appBarTheme.textTheme.headline6,
+          ? LayoutBuilder(builder: (context, constraints) {
+              return Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: constraints.maxHeight * .1),
+                    child: Text(
+                      'No transactions',
+                      style: Theme.of(context).appBarTheme.textTheme.headline6,
+                    ),
                   ),
-                ),
-                Container(
-                  height: 300,
-                  child: Image.asset(
-                    'assets/images/waiting.png',
-                    fit: BoxFit.cover,
+                  Container(
+                    height: constraints.maxHeight * .6,
+                    child: Image.asset(
+                      'assets/images/waiting.png',
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-              ],
-            )
+                ],
+              );
+            })
           : ListView.builder(
               itemCount: transactions.length,
               itemBuilder: (context, index) {

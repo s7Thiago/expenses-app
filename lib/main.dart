@@ -3,12 +3,11 @@ import 'dart:math';
 import 'package:expenses/components/chart.dart';
 import 'package:expenses/components/transaction_form.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-import 'model/transaction.dart';
-import 'components/transaction_list.dart';
-import './model/transaction.dart';
 import './components/transaction_form.dart';
+import './model/transaction.dart';
+import 'components/transaction_list.dart';
+import 'model/transaction.dart';
 
 main() => runApp(ExpensesApp());
 
@@ -47,6 +46,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final _transactions = <Transaction>[];
+  bool _showChart = false;
 
   List<Transaction> get _recentTransactions {
     return _transactions
@@ -92,9 +92,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // Setting up default orientation
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
     final appBar = AppBar(
       title: Text(
         'Despesas pessoais',
@@ -119,17 +116,33 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              height: avaliableHeight * 0.3,
-              child: Chart(recentTransactions: _recentTransactions),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(_showChart ? 'Show Transactions' : 'Show Chart'),
+                Switch(
+                  value: _showChart,
+                  onChanged: (value) {
+                    setState(() {
+                      _showChart = value;
+                    });
+                  },
+                ),
+              ],
             ),
-            Container(
-              height: avaliableHeight * 0.7,
-              child: TransactionList(
-                transactions: _transactions,
-                onRemove: _removeTransaction,
+            if (_showChart)
+              Container(
+                height: avaliableHeight * 0.3,
+                child: Chart(recentTransactions: _recentTransactions),
               ),
-            ),
+            if (!_showChart)
+              Container(
+                height: avaliableHeight * 0.7,
+                child: TransactionList(
+                  transactions: _transactions,
+                  onRemove: _removeTransaction,
+                ),
+              ),
           ],
         ),
       ),

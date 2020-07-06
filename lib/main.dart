@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:expenses/components/chart.dart';
 import 'package:expenses/components/transaction_form.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'model/transaction.dart';
 import 'components/transaction_list.dart';
@@ -91,6 +92,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // Setting up default orientation
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
     final appBar = AppBar(
       title: Text(
         'Despesas pessoais',

@@ -129,12 +129,12 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             if (_showChart || !isLandscape)
               Container(
-                height: avaliableHeight * (isLandscape ? .7 : .3),
+                height: avaliableHeight * (isLandscape ? 1 : .3),
                 child: Chart(recentTransactions: _recentTransactions),
               ),
             if (!_showChart || !isLandscape)
               Container(
-                height: avaliableHeight * 0.7,
+                height: avaliableHeight * (isLandscape ? 1 : .7),
                 child: TransactionList(
                   transactions: _transactions,
                   onRemove: _removeTransaction,
@@ -143,10 +143,12 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _openModalFormTransaction(context),
-        child: Icon(Icons.add),
-      ),
+      floatingActionButton: !isLandscape
+          ? FloatingActionButton(
+              onPressed: () => _openModalFormTransaction(context),
+              child: Icon(Icons.add),
+            )
+          : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }

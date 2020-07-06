@@ -41,60 +41,68 @@ class _TransactionFormState extends State<TransactionForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _titleController,
-              onSubmitted: (_) => _submitForm(),
-              decoration: InputDecoration(labelText: 'Title'),
-            ),
-            TextField(
-              controller: _valueController,
-              onSubmitted: (_) => _submitForm(),
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
-              decoration: InputDecoration(labelText: 'Value R\$'),
-            ),
-            Container(
-              height: 70,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      _selectedDate == null
-                          ? 'No date selected'
-                          : 'Selected ' +
-                              DateFormat('d/M/y').format(_selectedDate),
-                    ),
-                  ),
-                  FlatButton(
-                    onPressed: _showDatePicker,
-                    child: Text(
-                      'Choose a date',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: 10,
+            right: 10,
+            left: 10,
+            // Sums 10 to size of keyboard area
+            bottom: 10 + MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: Column(
+            children: [
+              TextField(
+                controller: _titleController,
+                onSubmitted: (_) => _submitForm(),
+                decoration: InputDecoration(labelText: 'Title'),
+              ),
+              TextField(
+                controller: _valueController,
+                onSubmitted: (_) => _submitForm(),
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                decoration: InputDecoration(labelText: 'Value R\$'),
+              ),
+              Container(
+                height: 70,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        _selectedDate == null
+                            ? 'No date selected'
+                            : 'Selected ' +
+                                DateFormat('d/M/y').format(_selectedDate),
                       ),
                     ),
-                    textColor: Theme.of(context).primaryColor,
-                  ),
-                ],
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: FlatButton(
-                onPressed: _submitForm,
-                child: Text(
-                  'New Transaction',
+                    FlatButton(
+                      onPressed: _showDatePicker,
+                      child: Text(
+                        'Choose a date',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      textColor: Theme.of(context).primaryColor,
+                    ),
+                  ],
                 ),
-                textColor: Theme.of(context).textTheme.button.color,
-                color: Theme.of(context).primaryColor,
               ),
-            )
-          ],
+              Align(
+                alignment: Alignment.centerRight,
+                child: FlatButton(
+                  onPressed: _submitForm,
+                  child: Text(
+                    'New Transaction',
+                  ),
+                  textColor: Theme.of(context).textTheme.button.color,
+                  color: Theme.of(context).primaryColor,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

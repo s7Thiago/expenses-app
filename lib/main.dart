@@ -102,10 +102,19 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       actions: [
+        if (isLandscape)
+          IconButton(
+            icon: Icon(_showChart ? Icons.list : Icons.insert_chart),
+            onPressed: () => {
+              setState(() {
+                _showChart = !_showChart;
+              })
+            },
+          ),
         IconButton(
           icon: Icon(Icons.add),
           onPressed: () => _openModalFormTransaction(context),
-        )
+        ),
       ],
     );
     final avaliableHeight = MediaQuery.of(context).size.height -
@@ -118,21 +127,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (isLandscape)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(_showChart ? 'Show Transactions' : 'Show Chart'),
-                  Switch(
-                    value: _showChart,
-                    onChanged: (value) {
-                      setState(() {
-                        _showChart = value;
-                      });
-                    },
-                  ),
-                ],
-              ),
             if (_showChart || !isLandscape)
               Container(
                 height: avaliableHeight * (isLandscape ? .7 : .3),
